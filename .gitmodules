@@ -1,0 +1,3 @@
+[submodule "client"]
+	path = client
+	url = git@github.com:L224FRING/basketball-frontend.git
