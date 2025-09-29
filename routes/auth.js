@@ -68,7 +68,6 @@ router.post('/register', [
         email: user.email,
         role: user.role,
         team: user.team,
-        position: user.position
       }
     });
   } catch (error) {
@@ -128,7 +127,6 @@ router.post('/login', [
         email: user.email,
         role: user.role,
         team: user.team,
-        position: user.position
       }
     });
   } catch (error) {
@@ -154,7 +152,6 @@ router.get('/me', protect, async (req, res) => {
         email: user.email,
         role: user.role,
         team: user.team,
-        position: user.position
       }
     });
   } catch (error) {
