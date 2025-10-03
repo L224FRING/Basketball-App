@@ -2,14 +2,14 @@ import mongoose from 'mongoose';
 
 const gameSchema = new mongoose.Schema({
   homeTeam: {
-    type: String,
-    required: [true, 'Please add home team'],
-    trim: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+    required: [true, 'Please add home team']
   },
   awayTeam: {
-    type: String,
-    required: [true, 'Please add away team'],
-    trim: true
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Team',
+  required: [true, 'Please add away team']
   },
   homeScore: {
     type: Number,

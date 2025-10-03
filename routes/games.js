@@ -77,8 +77,8 @@ router.get('/:id', async (req, res) => {
 // @route   POST /api/games
 // @access  Private (Admin/Coach)
 router.post('/', protect, authorize('admin', 'coach'), [
-  body('homeTeam').notEmpty().withMessage('Home team is required'),
-  body('awayTeam').notEmpty().withMessage('Away team is required'),
+  body('homeTeam').isMongoId().withMessage('Home team is required'),
+  body('awayTeam').isMongoId().withMessage('Away team is required'),
   body('gameDate').isISO8601().withMessage('Valid game date is required'),
   body('venue').optional().isString().withMessage('Venue must be a string')
 ], async (req, res) => {
