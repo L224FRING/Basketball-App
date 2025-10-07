@@ -172,6 +172,9 @@ router.put('/:id/score', protect, authorize('admin', 'coach'), [
       });
     }
 
+    const io = req.app.get("io");
+    io.to(game._id.toString()).emit("gameUpdated",game)
+
     res.json({
       success: true,
       data: game

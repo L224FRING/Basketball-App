@@ -4,8 +4,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import playerRoutes from './routes/players.js';
+import http from "http"
 import gameRoutes from './routes/games.js';
 import teamRoutes from './routes/teams.js';
+import  initGameSockets  from './sockets/gameSockets.js';
+import { protectSocket } from './middleware/socketAuth.js';
+import { Server } from 'socket.io';
 
 dotenv.config({ path: './config.env' });
 
@@ -23,9 +27,23 @@ app.use('/api/games', gameRoutes);
 app.use('/api/teams', teamRoutes);
 
 // Basic route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.json({ message: 'Basketball MERN API is running!' });
 });
+
+const server = http.createServer(app)
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "PUT"]
+    }
+})
+
+io.use(protectSocket)
+
+initGameSockets(io);
+
+app.set("io",io)
 
 // MongoDB connection
 const PORT = process.env.PORT || 5000;
