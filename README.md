@@ -40,6 +40,7 @@ basketball/
 │   │   ├── pages/         # Page components
 │   │   ├── context/       # React context
 │   │   ├── services/      # API services
+│   │   ├── types/         # Typescript Types
 │   │   └── App.tsx
 │   └── package.json
 ├── models/                 # MongoDB models

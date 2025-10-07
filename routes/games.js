@@ -28,6 +28,8 @@ router.get('/', async (req, res) => {
     }
 
     const games = await Game.find(query)
+      .populate('homeTeam', 'name')
+      .populate('awayTeam', 'name')
       .populate('gameStats.player', 'name team position')
       .sort({ gameDate: 1 });
     
@@ -51,7 +53,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const game = await Game.findById(req.params.id)
-      .populate('gameStats.player', 'name team position');
+      .populate('homeTeam', 'name')
+      .populate('awayTeam', 'name')
+      .populate('gameStats.player', 'name team position')
     
     if (!game) {
       return res.status(404).json({
@@ -184,7 +188,7 @@ router.put('/:id/score', protect, authorize('admin', 'coach'), [
 // @desc    Delete game
 // @route   DELETE /api/games/:id
 // @access  Private (Admin)
-router.delete('/:id', protect, authorize('admin'), async (req, res) => {
+router.delete('/:id', protect, authorize('admin','coach'), async (req, res) => {
   try {
     const game = await Game.findByIdAndDelete(req.params.id);
 
