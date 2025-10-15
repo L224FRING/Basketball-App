@@ -4,7 +4,6 @@ client/node_modules/
 
 # Environment variables
 .env
-config.env
 
 # Production build
 client/build/
