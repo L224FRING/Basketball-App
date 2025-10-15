@@ -35,11 +35,11 @@ const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
         origin: "*",
-        methods: ["GET", "PUT"]
-    }
+        methods: ["GET", "POST", "PUT"]
+    },
+    transports: ["websocket", "polling"]
 })
 
-io.use(protectSocket)
 
 initGameSockets(io);
 
@@ -52,7 +52,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/basket
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
   })

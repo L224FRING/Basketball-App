@@ -5,8 +5,10 @@ import User from "../models/User.js";
 export const protectSocket = async (socket, next) => {
   try {
     const token = socket.handshake.auth?.token;
-    if (!token) return next(new Error("No token provided"));
-
+    if (!token) {
+        console.log("mango")
+        return next(new Error("No token provided"));
+    }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select("role name");
 
